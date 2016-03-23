@@ -14,15 +14,21 @@ class UserServices(db: JdbcDatabase) {
 
 
   def create(user: User) = {
-    val newId = db.run(users.insert(user))
-    user.copy(id = newId)
+    val newId = db.run(users.insert)(List(user))
+    user.copy(id = newId.head)
   }
 
-  def delete(user: User) =
-    db.run(users.filter(_.id == user.id).delete )
+  def delete(user: User) = {
+    val id = user.id
+    db.run(users.filter(_.id == id).delete)
+  }
 
 
-  def update(user: User) =
-    db.run(users.filter(_.id == user.id).update(_.name -> user.name, _.isActive -> user.isActive))
+  def update(user: User) = {
+    val id = user.id
+    val name = user.name
+    val isActive = user.isActive
+    db.run(users.filter(_.id == id).update(_.name -> name, _.isActive -> isActive))
+  }
 
 }
