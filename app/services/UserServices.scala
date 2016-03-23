@@ -10,36 +10,19 @@ class UserServices(db: JdbcDatabase) {
   val users = quote(query[User](_.entity("users").generated(_.id)))
 
   def find(id: Long) =
-    db.run {
-      quote {
-        (id: Long) => users.filter(c => c.id == id && c.isActive)
-      }
-    }(id).headOption
+    db.run(users.filter(c => c.id == id && c.isActive)).headOption
 
 
   def create(user: User) = {
-    val newId = db.run {
-      quote {
-        users.insert
-      }
-    }(user)
+    val newId = db.run(users.insert(user))
     user.copy(id = newId)
   }
 
-  def delete(user: User) = {
-    db.run {
-      quote {
-        (id: Long) => users.filter(_.id == id).delete
-      }
-    }(user.id)
-  }
+  def delete(user: User) =
+    db.run(users.filter(_.id == user.id).delete )
 
-  def update(user: User) = {
-    db.run {
-      quote {
-        (id: Long, name: String, isActive: Boolean) =>
-          users.filter(_.id == id).update(_.name -> name, _.isActive -> isActive)
-      }
-    }(user.id, user.name, user.isActive)
-  }
+
+  def update(user: User) =
+    db.run(users.filter(_.id == user.id).update(_.name -> user.name, _.isActive -> user.isActive))
+
 }
