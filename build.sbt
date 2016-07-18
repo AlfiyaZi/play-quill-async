@@ -10,14 +10,17 @@ libraryDependencies ++= Seq(
   jdbc,
   cache,
   ws,
-  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.0-RC1" % Test,
-  "com.h2database" % "h2" % "1.4.190",
-  "io.getquill" %% "quill-jdbc" % "0.6.0",
-  "com.typesafe.play" % "play-jdbc-evolutions_2.11" % "2.5.0"
+  "io.getquill" %% "quill-jdbc" % "0.7.0",
+  "io.getquill" %% "quill-async" % "0.7.0",
+  "mysql" % "mysql-connector-java" % "5.1.36",
+  "com.typesafe.play" % "play-jdbc-evolutions_2.11" % "2.5.0",
+  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.0-RC1" % Test
 )
 
 resolvers ++= Seq(
   "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 )
+
+unmanagedClasspath in Compile += baseDirectory.value / "conf"
 
 routesGenerator := InjectedRoutesGenerator

@@ -1,11 +1,11 @@
-# Users schema
+# Devices schema
 
 # --- !Ups
-CREATE TABLE users (
+CREATE TABLE devices (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
-    is_active BOOLEAN NOT NULL
+    user_id INT NOT NULL
 );
 
 # --- !Downs
-DROP TABLE users;
+DROP TABLE devices;
