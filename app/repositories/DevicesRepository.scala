@@ -1,8 +1,14 @@
 package repositories
 
-import io.getquill._
+import db.Repository
 import tables.Device
 
-object DevicesRepository {
-  val table = quote(query[Device].schema(_.entity("devices").generated(_.id)))
+trait DevicesRepository extends Repository {
+  import ctx._
+
+  val devices = quote(query[Device].schema(_.entity("devices").generated(_.id)))
+
+  def byUserId(id: Long) = quote {
+    devices.filter(_.id == lift(id))
+  }
 }

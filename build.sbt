@@ -10,8 +10,8 @@ libraryDependencies ++= Seq(
   jdbc,
   cache,
   ws,
-  "io.getquill" %% "quill-jdbc" % "0.7.0",
-  "io.getquill" %% "quill-async" % "0.7.0",
+  "io.getquill" %% "quill-jdbc" % "0.8.0",
+  "io.getquill" %% "quill-async" % "0.8.0",
   "mysql" % "mysql-connector-java" % "5.1.36",
   "com.typesafe.play" % "play-jdbc-evolutions_2.11" % "2.5.0",
   "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.0-RC1" % Test

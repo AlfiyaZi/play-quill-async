@@ -1,4 +1,6 @@
 import controllers.UserController
+import db.DBContext
+import io.getquill.Literal
 import services.UserService
 import play.api.ApplicationLoader.Context
 import play.api.db.evolutions.Evolutions
@@ -14,6 +16,7 @@ class AppLoader extends ApplicationLoader {
   override def load(context: Context): Application =
     new BuiltInComponentsFromContext(context) with DBComponents with HikariCPComponents {
 
+    implicit lazy val ctx = new DBContext("db.default")
     lazy val userServices = new UserService
     lazy val userController = new UserController(userServices)
 
